@@ -36,13 +36,11 @@ public class ConfigurationController {
         getConfigurationResponse.setName(application);
         getConfigurationResponse.setProfiles(profiles);
 
-        Map<String, String> configurationMap = new HashMap<String, String>();
+        Map<String, String> configurationMap = new HashMap<>();
 
         List<PropertySourceResponse> propertySourceResponseList = new ArrayList<>();
         List<PropertiesEntity> propertiesEntityList = configurationService.getProperties(application, profile);
-        propertiesEntityList.stream().forEach(propertiesEntity -> {
-            configurationMap.put(propertiesEntity.getKey(), propertiesEntity.getValue());
-        });
+        propertiesEntityList.forEach(propertiesEntity -> configurationMap.put(propertiesEntity.getKey(), propertiesEntity.getValue()));
 
         PropertySourceResponse scopePropertySourceResponse = new PropertySourceResponse();
         scopePropertySourceResponse.setName(application + ".properties");
